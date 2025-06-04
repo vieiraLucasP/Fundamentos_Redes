@@ -1,0 +1,6 @@
+# CONFIGURAÇÃO PARA TESTE LOCAL
+# Teste com loopback para verificar se o código funciona
+127.0.0.1:6001
+Alice
+3
+true

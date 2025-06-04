@@ -1,0 +1,41 @@
+# Binários
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Arquivos de teste
+*.test
+*.out
+coverage.txt
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+
+# Diretórios de dependências
+vendor/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS específicos
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Arquivos de configuração local (não comitar configurações específicas)
+config_local*.txt
+*.local.*
