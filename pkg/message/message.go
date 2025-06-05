@@ -154,15 +154,8 @@ func (dm *DataMessage) IntroduceError(probability float64) bool {
 
 // String retorna uma representação em string da mensagem
 func (dm *DataMessage) String() string {
-	// Mostrar o conteúdo apenas para mensagens broadcast
-	if dm.Destination == "TODOS" {
-		return fmt.Sprintf("DataMessage{Origin: %s, Destination: %s, Control: %s, Message: %s}",
-			dm.Origin, dm.Destination, dm.Control, dm.Message)
-	}
-	
-	// Para mensagens privadas, não mostrar o conteúdo
-	return fmt.Sprintf("DataMessage{Origin: %s, Destination: %s, Control: %s, Message: <conteúdo privado>}",
-		dm.Origin, dm.Destination, dm.Control)
+	return fmt.Sprintf("DataMessage{Origin: %s, Destination: %s, Control: %s, Message: %s}",
+		dm.Origin, dm.Destination, dm.Control, dm.Message)
 }
 
 // String retorna uma representação em string da mensagem na fila
