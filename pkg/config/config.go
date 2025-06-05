@@ -134,8 +134,8 @@ func (c *Config) SetupLogger() error {
 		}
 	}
 
-	// Abrir arquivo de log
-	logFile, err := os.OpenFile(c.LogFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	// Limpar o arquivo de log existente (truncar para 0 bytes)
+	logFile, err := os.OpenFile(c.LogFile, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return fmt.Errorf("erro ao abrir arquivo de log: %v", err)
 	}
