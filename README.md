@@ -90,6 +90,7 @@ Durante a execução, você pode usar os seguintes comandos:
 - `status` - Ver status da máquina
 - `queue` - Ver fila de mensagens
 - `token` - Gerar novo token manualmente
+- `logs` - Ver últimas linhas do arquivo de log
 - `help` - Mostrar comandos disponíveis
 - `quit` - Sair da aplicação
 
@@ -138,6 +139,8 @@ A aplicação fornece logs detalhados sobre:
 - Detecção de erros
 - Status da fila de mensagens
 - Atividade da rede
+
+Os logs são gravados em arquivos de texto separados para cada máquina (ex: alice_log.txt, bob_log.txt), mantendo o terminal limpo para comandos. Use o comando `logs` para visualizar as últimas linhas do arquivo de log.
 
 ## Requisitos
 

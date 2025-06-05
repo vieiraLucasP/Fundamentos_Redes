@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
-	"path/filepath"
 	"strings"
 	"sync"
 
@@ -30,72 +28,7 @@ func main() {
 		log.Fatalf("Erro ao carregar configuração: %v", err)
 	}
 	
-	// Verificar se estamos em modo de redirecionamento
-	if len(os.Args) > 1 && os.Getenv("MACHINE_REDIRECTED") != "1" {
-		// Extrair o nome da máquina do arquivo de configuração para usar no nome do log
-		configContent, err := os.ReadFile(configFile)
-		if err != nil {
-			fmt.Printf("Erro ao ler arquivo de configuração: %v\n", err)
-			os.Exit(1)
-		}
-		
-		lines := strings.Split(string(configContent), "\n")
-		machineName := ""
-		for i, line := range lines {
-			line = strings.TrimSpace(line)
-			if line != "" && !strings.HasPrefix(line, "#") {
-				if i == 1 { // A segunda linha não vazia é o nome da máquina
-					machineName = line
-					break
-				}
-			}
-		}
-		
-		// Se não conseguiu extrair o nome, usar o nome do arquivo
-		if machineName == "" {
-			machineName = strings.TrimSuffix(filepath.Base(configFile), ".txt")
-		}
-		
-		logFile := strings.ToLower(machineName) + "_log.txt"
-		
-		fmt.Printf("Iniciando máquina com logs redirecionados para: %s\n", logFile)
-		
-		// Preparar o novo processo com redirecionamento
-		cmd := exec.Command(os.Args[0], os.Args[1:]...)
-		cmd.Env = append(os.Environ(), "MACHINE_REDIRECTED=1")
-		
-		// Abrir arquivo de log
-		file, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
-		if err != nil {
-			fmt.Printf("Erro ao abrir arquivo de log: %v\n", err)
-			os.Exit(1)
-		}
-		
-		// Redirecionar stderr para o arquivo
-		cmd.Stderr = file
-		
-		// Manter stdout e stdin conectados ao terminal
-		cmd.Stdout = os.Stdout
-		cmd.Stdin = os.Stdin
-		
-		// Iniciar o processo
-		if err := cmd.Start(); err != nil {
-			fmt.Printf("Erro ao iniciar processo: %v\n", err)
-			os.Exit(1)
-		}
-		
-		fmt.Printf("Processo iniciado com PID %d. Os logs estão sendo gravados em %s\n", cmd.Process.Pid, logFile)
-		fmt.Println("O terminal agora está limpo para comandos.")
-		
-		// Aguardar o processo terminar
-		if err := cmd.Wait(); err != nil {
-			fmt.Printf("Processo encerrado com erro: %v\n", err)
-			os.Exit(1)
-		}
-		
-		// Sair do processo original
-		os.Exit(0)
-	}
+
 	
 	// Configurar logger para escrever em arquivo
 	if err := cfg.SetupLogger(); err != nil {

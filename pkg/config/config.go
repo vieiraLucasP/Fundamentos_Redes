@@ -124,16 +124,6 @@ func (c *Config) String() string {
 	return fmt.Sprintf("Config{NextMachine: %s, Name: %s, TokenTime: %d, GeneratesToken: %t, ListenPort: %d, LogFile: %s}",
 		c.NextMachineAddr, c.MachineName, c.TokenTime, c.GeneratesToken, c.ListenPort, c.LogFile)
 }
-// CustomWriter é um escritor personalizado que escreve em um arquivo
-type CustomWriter struct {
-	file *os.File
-}
-
-// Write implementa a interface io.Writer
-func (w *CustomWriter) Write(p []byte) (n int, err error) {
-	return w.file.Write(p)
-}
-
 // SetupLogger configura o logger para escrever no arquivo de log
 func (c *Config) SetupLogger() error {
 	// Criar diretório de logs se não existir
@@ -154,11 +144,6 @@ func (c *Config) SetupLogger() error {
 	log.SetOutput(logFile)
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds)
 	log.Printf("=== Iniciando logs para máquina %s ===", c.MachineName)
-
-	// Substituir o logger padrão por um que escreve no arquivo
-	// Isso garante que todas as mensagens de log sejam redirecionadas
-	writer := &CustomWriter{file: logFile}
-	log.SetOutput(writer)
 
 	return nil
 }

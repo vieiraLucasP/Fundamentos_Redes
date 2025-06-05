@@ -109,7 +109,14 @@ func (m *Machine) Start() {
 		}
 
 		data := string(buffer[:n])
-		log.Printf("[%s] Recebido de %s: %s", m.config.MachineName, addr, data)
+		
+		// Verificar se é um token ou um pacote de dados
+		if message.IsTokenPacket(data) {
+			log.Printf("[%s] Recebido de %s: %s", m.config.MachineName, addr, data)
+		} else {
+			// Para pacotes de dados, não mostrar o conteúdo bruto
+			log.Printf("[%s] Recebido pacote de dados de %s", m.config.MachineName, addr)
+		}
 
 		m.handleReceivedData(data)
 	}
@@ -220,16 +227,21 @@ func (m *Machine) processToken() {
 
 // handleDataPacket processa um pacote de dados recebido
 func (m *Machine) handleDataPacket(dataMsg *message.DataMessage) {
-	log.Printf("[%s] Pacote de dados recebido: %s", m.config.MachineName, dataMsg.String())
-
 	// Verificar se a mensagem é para esta máquina
-	if dataMsg.Destination == m.config.MachineName || dataMsg.Destination == "TODOS" {
+	if dataMsg.Destination == m.config.MachineName {
+		// Mensagem destinada a esta máquina - mostrar detalhes completos
+		log.Printf("[%s] Pacote de dados recebido para mim: %s", m.config.MachineName, dataMsg.String())
+		m.handleMessageForThisMachine(dataMsg)
+	} else if dataMsg.Destination == "TODOS" {
+		// Mensagem de broadcast - mostrar detalhes
+		log.Printf("[%s] Pacote de dados broadcast recebido: %s", m.config.MachineName, dataMsg.String())
 		m.handleMessageForThisMachine(dataMsg)
 	} else if dataMsg.Origin == m.config.MachineName {
 		// Mensagem de volta para o originador
+		log.Printf("[%s] Pacote de dados retornado: %s", m.config.MachineName, dataMsg.String())
 		m.handleReturnedMessage(dataMsg)
 	} else {
-		// Mensagem para outra máquina, repassar
+		// Mensagem para outra máquina, repassar sem mostrar o conteúdo
 		m.forwardMessage(dataMsg)
 	}
 }
@@ -261,8 +273,9 @@ func (m *Machine) handleMessageForThisMachine(dataMsg *message.DataMessage) {
 
 	// Verificar integridade da mensagem para mensagens unicast
 	if dataMsg.VerifyIntegrity() {
-		// Mensagem íntegra
-		log.Printf("[%s] Mensagem recebida de %s: %s", m.config.MachineName, dataMsg.Origin, dataMsg.Message)
+		// Mensagem íntegra - mostrar que recebeu a mensagem sem expor o conteúdo
+		log.Printf("[%s] Mensagem privada recebida de %s", m.config.MachineName, dataMsg.Origin)
+		// Processar a mensagem internamente (sem mostrar no log)
 		dataMsg.SetControl(message.ControlACK)
 	} else {
 		// Mensagem com erro
@@ -324,7 +337,9 @@ func (m *Machine) handleReturnedMessage(dataMsg *message.DataMessage) {
 
 // forwardMessage repassa uma mensagem para a próxima máquina
 func (m *Machine) forwardMessage(dataMsg *message.DataMessage) {
-	log.Printf("[%s] Repassando mensagem de %s para %s", m.config.MachineName, dataMsg.Origin, dataMsg.Destination)
+	// Não mostrar o conteúdo da mensagem ao repassar, apenas origem e destino
+	log.Printf("[%s] Repassando mensagem de %s para %s (conteúdo privado)", 
+		m.config.MachineName, dataMsg.Origin, dataMsg.Destination)
 	m.sendPacket(dataMsg.RawData)
 }
 
