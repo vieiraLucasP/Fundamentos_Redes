@@ -3,7 +3,9 @@ package config
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -15,6 +17,7 @@ type Config struct {
 	TokenTime       int    // Tempo que o token permanece na máquina (segundos)
 	GeneratesToken  bool   // Se esta máquina gera o token inicial
 	ListenPort      int    // Porta para escutar pacotes UDP
+	LogFile         string // Caminho para o arquivo de log
 }
 
 // LoadConfig carrega a configuração do arquivo especificado
@@ -66,6 +69,9 @@ func LoadConfig(filename string) (*Config, error) {
 		return nil, fmt.Errorf("valor de geração de token inválido: %v", err)
 	}
 	cfg.GeneratesToken = generatesToken
+	
+	// Configurar arquivo de log baseado no nome da máquina
+	cfg.LogFile = fmt.Sprintf("%s_log.txt", strings.ToLower(cfg.MachineName))
 
 	// Determinar porta de escuta baseada no nome da máquina
 	switch cfg.MachineName {
@@ -115,6 +121,44 @@ func (c *Config) Validate() error {
 
 // String retorna uma representação em string da configuração
 func (c *Config) String() string {
-	return fmt.Sprintf("Config{NextMachine: %s, Name: %s, TokenTime: %d, GeneratesToken: %t, ListenPort: %d}",
-		c.NextMachineAddr, c.MachineName, c.TokenTime, c.GeneratesToken, c.ListenPort)
+	return fmt.Sprintf("Config{NextMachine: %s, Name: %s, TokenTime: %d, GeneratesToken: %t, ListenPort: %d, LogFile: %s}",
+		c.NextMachineAddr, c.MachineName, c.TokenTime, c.GeneratesToken, c.ListenPort, c.LogFile)
+}
+// CustomWriter é um escritor personalizado que escreve em um arquivo
+type CustomWriter struct {
+	file *os.File
+}
+
+// Write implementa a interface io.Writer
+func (w *CustomWriter) Write(p []byte) (n int, err error) {
+	return w.file.Write(p)
+}
+
+// SetupLogger configura o logger para escrever no arquivo de log
+func (c *Config) SetupLogger() error {
+	// Criar diretório de logs se não existir
+	logDir := filepath.Dir(c.LogFile)
+	if logDir != "." && logDir != "" {
+		if err := os.MkdirAll(logDir, 0755); err != nil {
+			return fmt.Errorf("erro ao criar diretório de logs: %v", err)
+		}
+	}
+
+	// Abrir arquivo de log
+	logFile, err := os.OpenFile(c.LogFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		return fmt.Errorf("erro ao abrir arquivo de log: %v", err)
+	}
+
+	// Configurar logger para escrever no arquivo
+	log.SetOutput(logFile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds)
+	log.Printf("=== Iniciando logs para máquina %s ===", c.MachineName)
+
+	// Substituir o logger padrão por um que escreve no arquivo
+	// Isso garante que todas as mensagens de log sejam redirecionadas
+	writer := &CustomWriter{file: logFile}
+	log.SetOutput(writer)
+
+	return nil
 }

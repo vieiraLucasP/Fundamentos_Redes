@@ -1,0 +1,215 @@
+2025/06/05 14:46:22.385388 === Iniciando logs para máquina Alice ===
+2025/06/05 14:46:22.386500 [Alice] Máquina iniciada na porta 6000
+2025/06/05 14:46:23.386913 [Alice] Gerando token inicial
+2025/06/05 14:46:43.400399 [Alice] ⚠️  Token perdido! (último visto há 21.013511791s) Gerando novo token...
+2025/06/05 14:46:43.401314 [Alice] Gerando token inicial
+2025/06/05 14:46:57.805603 [Alice] Máquina parada
+2025/06/05 14:47:25.577037 === Iniciando logs para máquina Alice ===
+2025/06/05 14:47:25.578136 [Alice] Máquina iniciada na porta 6000
+2025/06/05 14:47:26.579077 [Alice] Gerando token inicial
+2025/06/05 14:47:33.704476 [Alice] Máquina parada
+2025/06/05 14:47:33.704412 [Alice] Erro ao ler dados: read udp [::]:6000: use of closed network connection
+2025/06/05 14:48:47.007004 === Iniciando logs para máquina Alice ===
+2025/06/05 14:48:47.009286 [Alice] Máquina iniciada na porta 6000
+2025/06/05 14:48:48.009928 [Alice] Gerando token inicial
+2025/06/05 14:49:08.016041 [Alice] ⚠️  Token perdido! (último visto há 21.006693381s) Gerando novo token...
+2025/06/05 14:49:08.016113 [Alice] Gerando token inicial
+2025/06/05 14:49:14.023413 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:49:14.023568 [Alice] Token recebido
+2025/06/05 14:49:17.025749 [Alice] Enviando mensagem BROADCAST: ola todos
+2025/06/05 14:49:17.025888 [Alice] Mensagem enviada para TODOS: ola todos
+2025/06/05 14:49:17.026578 [Alice] Recebido de 127.0.0.1:6002: 2000;Alice:TODOS:maquinanaoexiste:2075788316:ola todos
+2025/06/05 14:49:17.026628 [Alice] Pacote de dados recebido: DataMessage{Origin: Alice, Destination: TODOS, Control: maquinanaoexiste, Message: ola todos}
+2025/06/05 14:49:17.026651 [Alice] Mensagem BROADCAST recebida de Alice: ola todos
+2025/06/05 14:49:17.026714 [Alice] Token enviado para próxima máquina
+2025/06/05 14:49:23.029144 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:49:23.029181 [Alice] Token recebido
+2025/06/05 14:49:26.029632 [Alice] Fila vazia, passando token
+2025/06/05 14:49:26.029816 [Alice] Token enviado para próxima máquina
+2025/06/05 14:49:32.032543 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:49:32.032573 [Alice] Token recebido
+2025/06/05 14:49:35.032682 [Alice] Fila vazia, passando token
+2025/06/05 14:49:35.032887 [Alice] Token enviado para próxima máquina
+2025/06/05 14:49:41.034570 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:49:41.034611 [Alice] Token recebido
+2025/06/05 14:49:44.035757 [Alice] Fila vazia, passando token
+2025/06/05 14:49:44.036024 [Alice] Token enviado para próxima máquina
+2025/06/05 14:49:50.037640 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:49:50.037678 [Alice] Token recebido
+2025/06/05 14:49:53.038207 [Alice] Fila vazia, passando token
+2025/06/05 14:49:53.038424 [Alice] Token enviado para próxima máquina
+2025/06/05 14:49:59.060722 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:49:59.060760 [Alice] Token recebido
+2025/06/05 14:50:02.061533 [Alice] Fila vazia, passando token
+2025/06/05 14:50:02.061654 [Alice] Token enviado para próxima máquina
+2025/06/05 14:50:08.063447 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:50:08.063500 [Alice] Token recebido
+2025/06/05 14:50:11.064035 [Alice] Fila vazia, passando token
+2025/06/05 14:50:11.064277 [Alice] Token enviado para próxima máquina
+2025/06/05 14:50:17.066099 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:50:17.066147 [Alice] Token recebido
+2025/06/05 14:50:20.066260 [Alice] Fila vazia, passando token
+2025/06/05 14:50:20.066439 [Alice] Token enviado para próxima máquina
+2025/06/05 14:50:26.067751 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:50:26.067798 [Alice] Token recebido
+2025/06/05 14:50:29.067892 [Alice] Fila vazia, passando token
+2025/06/05 14:50:29.068047 [Alice] Token enviado para próxima máquina
+2025/06/05 14:50:35.070500 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:50:35.070576 [Alice] Token recebido
+2025/06/05 14:50:38.071035 [Alice] Fila vazia, passando token
+2025/06/05 14:50:38.071207 [Alice] Token enviado para próxima máquina
+2025/06/05 14:50:44.073483 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:50:44.073532 [Alice] Token recebido
+2025/06/05 14:50:47.073869 [Alice] Fila vazia, passando token
+2025/06/05 14:50:47.074054 [Alice] Token enviado para próxima máquina
+2025/06/05 14:50:53.075977 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:50:53.076017 [Alice] Token recebido
+2025/06/05 14:50:56.077247 [Alice] Enviando mensagem BROADCAST: outro teste TESTE TESTE TTETETET
+2025/06/05 14:50:56.077445 [Alice] Mensagem enviada para TODOS: outro teste TESTE TESTE TTETETET
+2025/06/05 14:50:56.078172 [Alice] Recebido de 127.0.0.1:6002: 2000;Alice:TODOS:maquinanaoexiste:4014082064:outro teste TESTE TESTE TTETETET
+2025/06/05 14:50:56.078240 [Alice] Pacote de dados recebido: DataMessage{Origin: Alice, Destination: TODOS, Control: maquinanaoexiste, Message: outro teste TESTE TESTE TTETETET}
+2025/06/05 14:50:56.078259 [Alice] Mensagem BROADCAST recebida de Alice: outro teste TESTE TESTE TTETETET
+2025/06/05 14:50:56.078327 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:02.080459 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:02.080503 [Alice] Token recebido
+2025/06/05 14:51:05.081598 [Alice] Fila vazia, passando token
+2025/06/05 14:51:05.081829 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:11.082992 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:11.083030 [Alice] Token recebido
+2025/06/05 14:51:14.083839 [Alice] Fila vazia, passando token
+2025/06/05 14:51:14.084039 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:20.085827 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:20.085866 [Alice] Token recebido
+2025/06/05 14:51:23.087011 [Alice] Fila vazia, passando token
+2025/06/05 14:51:23.087208 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:29.089199 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:29.089225 [Alice] Token recebido
+2025/06/05 14:51:32.090154 [Alice] Fila vazia, passando token
+2025/06/05 14:51:32.090333 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:38.092115 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:38.092151 [Alice] Token recebido
+2025/06/05 14:51:41.092458 [Alice] Fila vazia, passando token
+2025/06/05 14:51:41.092665 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:47.094198 [Alice] Recebido de 127.0.0.1:6002: 2000;Carol:Bob:maquinanaoexiste:2656516936:olá Bob tudo certo? BOB
+2025/06/05 14:51:47.094276 [Alice] Pacote de dados recebido: DataMessage{Origin: Carol, Destination: Bob, Control: maquinanaoexiste, Message: olá Bob tudo certo? BOB}
+2025/06/05 14:51:47.094303 [Alice] Repassando mensagem de Carol para Bob
+2025/06/05 14:51:47.095133 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:47.095167 [Alice] Token recebido
+2025/06/05 14:51:50.095396 [Alice] Fila vazia, passando token
+2025/06/05 14:51:50.095554 [Alice] Token enviado para próxima máquina
+2025/06/05 14:51:56.097905 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:51:56.097997 [Alice] Token recebido
+2025/06/05 14:51:59.098241 [Alice] Fila vazia, passando token
+2025/06/05 14:51:59.098463 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:05.100450 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:05.100529 [Alice] Token recebido
+2025/06/05 14:52:08.101695 [Alice] Fila vazia, passando token
+2025/06/05 14:52:08.101876 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:14.103537 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:14.103595 [Alice] Token recebido
+2025/06/05 14:52:17.104741 [Alice] Fila vazia, passando token
+2025/06/05 14:52:17.104986 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:23.107238 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:23.107284 [Alice] Token recebido
+2025/06/05 14:52:26.107857 [Alice] Fila vazia, passando token
+2025/06/05 14:52:26.108019 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:32.109683 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:32.109722 [Alice] Token recebido
+2025/06/05 14:52:35.110032 [Alice] Fila vazia, passando token
+2025/06/05 14:52:35.110194 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:41.112062 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:41.112103 [Alice] Token recebido
+2025/06/05 14:52:44.112762 [Alice] Fila vazia, passando token
+2025/06/05 14:52:44.112939 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:50.114801 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:50.114837 [Alice] Token recebido
+2025/06/05 14:52:53.116005 [Alice] Fila vazia, passando token
+2025/06/05 14:52:53.116253 [Alice] Token enviado para próxima máquina
+2025/06/05 14:52:59.118741 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:52:59.118794 [Alice] Token recebido
+2025/06/05 14:53:02.119261 [Alice] Fila vazia, passando token
+2025/06/05 14:53:02.119479 [Alice] Token enviado para próxima máquina
+2025/06/05 14:53:08.122433 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:53:08.122487 [Alice] Token recebido
+2025/06/05 14:53:11.123131 [Alice] Fila vazia, passando token
+2025/06/05 14:53:11.123373 [Alice] Token enviado para próxima máquina
+2025/06/05 14:53:17.125329 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:53:17.125375 [Alice] Token recebido
+2025/06/05 14:53:20.125998 [Alice] Fila vazia, passando token
+2025/06/05 14:53:20.126180 [Alice] Token enviado para próxima máquina
+2025/06/05 14:53:26.128458 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:53:26.128505 [Alice] Token recebido
+2025/06/05 14:53:29.129633 [Alice] Fila vazia, passando token
+2025/06/05 14:53:29.129837 [Alice] Token enviado para próxima máquina
+2025/06/05 14:53:35.131503 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:53:35.131527 [Alice] Token recebido
+2025/06/05 14:53:38.132109 [Alice] Fila vazia, passando token
+2025/06/05 14:53:38.132272 [Alice] Token enviado para próxima máquina
+2025/06/05 14:53:44.134181 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:53:44.134228 [Alice] Token recebido
+2025/06/05 14:53:47.135015 [Alice] Fila vazia, passando token
+2025/06/05 14:53:47.135143 [Alice] Token enviado para próxima máquina
+2025/06/05 14:53:53.137919 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:53:53.137956 [Alice] Token recebido
+2025/06/05 14:53:56.139097 [Alice] Fila vazia, passando token
+2025/06/05 14:53:56.139282 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:02.141381 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:02.141428 [Alice] Token recebido
+2025/06/05 14:54:05.142625 [Alice] Fila vazia, passando token
+2025/06/05 14:54:05.142819 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:11.145709 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:11.145796 [Alice] Token recebido
+2025/06/05 14:54:14.146031 [Alice] Fila vazia, passando token
+2025/06/05 14:54:14.146154 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:20.148997 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:20.149052 [Alice] Token recebido
+2025/06/05 14:54:23.149987 [Alice] Fila vazia, passando token
+2025/06/05 14:54:23.150194 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:29.152651 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:29.152681 [Alice] Token recebido
+2025/06/05 14:54:32.153609 [Alice] Fila vazia, passando token
+2025/06/05 14:54:32.153872 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:38.155832 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:38.155878 [Alice] Token recebido
+2025/06/05 14:54:41.157014 [Alice] Fila vazia, passando token
+2025/06/05 14:54:41.157198 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:47.159137 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:47.159183 [Alice] Token recebido
+2025/06/05 14:54:50.159758 [Alice] Fila vazia, passando token
+2025/06/05 14:54:50.159939 [Alice] Token enviado para próxima máquina
+2025/06/05 14:54:56.163174 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:54:56.163226 [Alice] Token recebido
+2025/06/05 14:54:59.163539 [Alice] Fila vazia, passando token
+2025/06/05 14:54:59.163693 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:05.164812 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:05.164836 [Alice] Token recebido
+2025/06/05 14:55:08.165447 [Alice] Fila vazia, passando token
+2025/06/05 14:55:08.165558 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:14.166756 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:14.166789 [Alice] Token recebido
+2025/06/05 14:55:17.167239 [Alice] Fila vazia, passando token
+2025/06/05 14:55:17.167372 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:23.170202 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:23.170248 [Alice] Token recebido
+2025/06/05 14:55:26.170587 [Alice] Fila vazia, passando token
+2025/06/05 14:55:26.170845 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:32.173549 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:32.173596 [Alice] Token recebido
+2025/06/05 14:55:35.174025 [Alice] Fila vazia, passando token
+2025/06/05 14:55:35.174156 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:41.175460 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:41.175536 [Alice] Token recebido
+2025/06/05 14:55:44.176729 [Alice] Fila vazia, passando token
+2025/06/05 14:55:44.177042 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:50.180071 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:50.180322 [Alice] Token recebido
+2025/06/05 14:55:53.180426 [Alice] Fila vazia, passando token
+2025/06/05 14:55:53.180551 [Alice] Token enviado para próxima máquina
+2025/06/05 14:55:59.183622 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:55:59.183650 [Alice] Token recebido
+2025/06/05 14:56:02.184308 [Alice] Fila vazia, passando token
+2025/06/05 14:56:02.184707 [Alice] Token enviado para próxima máquina
+2025/06/05 14:56:08.186753 [Alice] Recebido de 127.0.0.1:6002: 1000
+2025/06/05 14:56:08.186805 [Alice] Token recebido
+2025/06/05 14:56:11.187539 [Alice] Fila vazia, passando token
+2025/06/05 14:56:11.187738 [Alice] Token enviado para próxima máquina
