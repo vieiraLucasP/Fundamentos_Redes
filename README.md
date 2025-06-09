@@ -94,14 +94,6 @@ Durante a execução, você pode usar os seguintes comandos:
 - `help` - Mostrar comandos disponíveis
 - `quit` - Sair da aplicação
 
-### Exemplos de uso:
-```
-> send Bob Olá Bob, como vai?
-> broadcast Olá pessoal!
-> status
-> queue
-```
-
 ## Funcionamento
 
 ### 1. Inicialização
@@ -147,38 +139,8 @@ Os logs são gravados em arquivos de texto separados para cada máquina (ex: ali
 - Go 1.19 ou superior
 - Portas UDP 6000-6002 disponíveis para teste local
 
-## Limitações
-
-- Máximo 10 mensagens na fila por máquina
-- Retransmissão limitada a uma tentativa por mensagem
-- Configuração manual do anel (ordem das máquinas)
-
-## Scripts de Demonstração
-
-O projeto inclui vários scripts para facilitar o uso:
-
-- `demo_rapida.sh` - Demonstração automatizada rápida
-- `demo.sh` - Demonstração interativa completa
-- `manual_test.sh` - Teste manual em terminais separados
-- `test_final_validation.sh` - Validação automática completa
-
-### Uso Rápido
-```bash
-# Demonstração automática
-./demo_rapida.sh
-
-# Demonstração interativa
-./demo.sh
-
-# Validação completa
-./test_final_validation.sh
-```
-
 ## Status do Projeto
 
-✅ **PROJETO CONCLUÍDO COM SUCESSO**
-
-Todas as funcionalidades foram implementadas e testadas:
 - Sistema de passagem de token funcionando
 - Comunicação UDP entre máquinas
 - Fila de mensagens com limite de 10
@@ -188,15 +150,6 @@ Todas as funcionalidades foram implementadas e testadas:
 - Módulo de inserção de falhas
 - Interface interativa completa
 - Detecção e regeneração de token perdido
-
-## Desenvolvimento
-
-Para contribuir com o projeto:
-
-1. Clone o repositório
-2. Execute `go mod tidy` para baixar dependências
-3. Execute os testes com `go test ./...`
-4. Compile com `go build cmd/machine/main.go`
 
 ## Licença
 

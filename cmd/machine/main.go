@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-	// Verificar se o arquivo de configuração foi fornecido
 	if len(os.Args) < 2 {
 		fmt.Println("Uso: go run main.go <arquivo_de_configuracao>")
 		fmt.Println("Exemplo: go run main.go config.txt")
@@ -22,15 +21,11 @@ func main() {
 
 	configFile := os.Args[1]
 
-	// Carregar configuração
 	cfg, err := config.LoadConfig(configFile)
 	if err != nil {
 		log.Fatalf("Erro ao carregar configuração: %v", err)
 	}
-	
 
-	
-	// Configurar logger para escrever em arquivo
 	if err := cfg.SetupLogger(); err != nil {
 		fmt.Printf("Aviso: Não foi possível configurar o arquivo de log: %v\n", err)
 		fmt.Println("Os logs serão exibidos apenas no terminal.")
@@ -46,13 +41,11 @@ func main() {
 	fmt.Printf("Gera token inicial: %t\n", cfg.GeneratesToken)
 	fmt.Println("=====================================")
 
-	// Criar a máquina da rede
 	machine, err := network.NewMachine(cfg)
 	if err != nil {
 		log.Fatalf("Erro ao criar máquina: %v", err)
 	}
 
-	// Iniciar a máquina em uma goroutine
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -60,7 +53,6 @@ func main() {
 		machine.Start()
 	}()
 
-	// Interface de linha de comando para envio de mensagens
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
 		fmt.Println("\n=== Interface de Comandos ===")
@@ -159,21 +151,18 @@ func main() {
 				fmt.Println("8. quit - Sair")
 
 			case "logs":
-				// Mostrar as últimas linhas do arquivo de log
 				if cfg.LogFile == "" {
 					fmt.Println("Logs não estão sendo gravados em arquivo.")
 					continue
 				}
-				
-				// Ler as últimas 20 linhas do arquivo de log
+
 				file, err := os.Open(cfg.LogFile)
 				if err != nil {
 					fmt.Printf("Erro ao abrir arquivo de log: %v\n", err)
 					continue
 				}
 				defer file.Close()
-				
-				// Ler o arquivo e manter apenas as últimas 20 linhas
+
 				scanner := bufio.NewScanner(file)
 				var lines []string
 				for scanner.Scan() {
@@ -182,12 +171,12 @@ func main() {
 						lines = lines[1:]
 					}
 				}
-				
+
 				if err := scanner.Err(); err != nil {
 					fmt.Printf("Erro ao ler arquivo de log: %v\n", err)
 					continue
 				}
-				
+
 				fmt.Println("\n=== Últimas linhas do log ===")
 				if len(lines) == 0 {
 					fmt.Println("Nenhum log encontrado.")
@@ -197,7 +186,7 @@ func main() {
 					}
 				}
 				fmt.Println("=============================")
-				
+
 			case "quit", "exit":
 				fmt.Println("Encerrando máquina...")
 				machine.Stop()
@@ -209,6 +198,5 @@ func main() {
 		}
 	}()
 
-	// Aguardar a goroutine principal
 	wg.Wait()
 }

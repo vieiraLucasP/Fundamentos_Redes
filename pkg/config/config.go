@@ -10,17 +10,15 @@ import (
 	"strings"
 )
 
-// Config representa a configuração da máquina
 type Config struct {
-	NextMachineAddr string // IP:porta da próxima máquina no anel
-	MachineName     string // Apelido da máquina atual
-	TokenTime       int    // Tempo que o token permanece na máquina (segundos)
-	GeneratesToken  bool   // Se esta máquina gera o token inicial
-	ListenPort      int    // Porta para escutar pacotes UDP
-	LogFile         string // Caminho para o arquivo de log
+	NextMachineAddr string
+	MachineName     string
+	TokenTime       int
+	GeneratesToken  bool
+	ListenPort      int
+	LogFile         string
 }
 
-// LoadConfig carrega a configuração do arquivo especificado
 func LoadConfig(filename string) (*Config, error) {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -31,7 +29,6 @@ func LoadConfig(filename string) (*Config, error) {
 	scanner := bufio.NewScanner(file)
 	var lines []string
 
-	// Ler todas as linhas não vazias
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line != "" && !strings.HasPrefix(line, "#") {
@@ -47,33 +44,26 @@ func LoadConfig(filename string) (*Config, error) {
 		return nil, fmt.Errorf("arquivo de configuração incompleto. Esperado 4 linhas, encontrado %d", len(lines))
 	}
 
-	// Parsear configuração
 	cfg := &Config{}
 
-	// Linha 1: IP:porta do destino
 	cfg.NextMachineAddr = lines[0]
 
-	// Linha 2: Apelido da máquina
 	cfg.MachineName = lines[1]
 
-	// Linha 3: Tempo do token
 	tokenTime, err := strconv.Atoi(lines[2])
 	if err != nil {
 		return nil, fmt.Errorf("tempo do token inválido: %v", err)
 	}
 	cfg.TokenTime = tokenTime
 
-	// Linha 4: Gera token inicial
 	generatesToken, err := strconv.ParseBool(lines[3])
 	if err != nil {
 		return nil, fmt.Errorf("valor de geração de token inválido: %v", err)
 	}
 	cfg.GeneratesToken = generatesToken
-	
-	// Configurar arquivo de log baseado no nome da máquina
+
 	cfg.LogFile = fmt.Sprintf("%s_log.txt", strings.ToLower(cfg.MachineName))
 
-	// Determinar porta de escuta baseada no nome da máquina
 	switch cfg.MachineName {
 	case "Alice":
 		cfg.ListenPort = 6000
@@ -82,7 +72,6 @@ func LoadConfig(filename string) (*Config, error) {
 	case "Carol":
 		cfg.ListenPort = 6002
 	default:
-		// Para outras máquinas, extrair porta do endereço de destino como fallback
 		parts := strings.Split(cfg.NextMachineAddr, ":")
 		if len(parts) != 2 {
 			return nil, fmt.Errorf("formato de endereço inválido: %s", cfg.NextMachineAddr)
@@ -92,13 +81,12 @@ func LoadConfig(filename string) (*Config, error) {
 		if err != nil {
 			return nil, fmt.Errorf("porta inválida: %v", err)
 		}
-		cfg.ListenPort = port - 1 // Usar porta anterior como convenção
+		cfg.ListenPort = port - 1
 	}
 
 	return cfg, nil
 }
 
-// Validate verifica se a configuração é válida
 func (c *Config) Validate() error {
 	if c.NextMachineAddr == "" {
 		return fmt.Errorf("endereço da próxima máquina não pode estar vazio")
@@ -119,14 +107,11 @@ func (c *Config) Validate() error {
 	return nil
 }
 
-// String retorna uma representação em string da configuração
 func (c *Config) String() string {
 	return fmt.Sprintf("Config{NextMachine: %s, Name: %s, TokenTime: %d, GeneratesToken: %t, ListenPort: %d, LogFile: %s}",
 		c.NextMachineAddr, c.MachineName, c.TokenTime, c.GeneratesToken, c.ListenPort, c.LogFile)
 }
-// SetupLogger configura o logger para escrever no arquivo de log
 func (c *Config) SetupLogger() error {
-	// Criar diretório de logs se não existir
 	logDir := filepath.Dir(c.LogFile)
 	if logDir != "." && logDir != "" {
 		if err := os.MkdirAll(logDir, 0755); err != nil {
@@ -134,13 +119,11 @@ func (c *Config) SetupLogger() error {
 		}
 	}
 
-	// Limpar o arquivo de log existente (truncar para 0 bytes)
 	logFile, err := os.OpenFile(c.LogFile, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		return fmt.Errorf("erro ao abrir arquivo de log: %v", err)
 	}
 
-	// Configurar logger para escrever no arquivo
 	log.SetOutput(logFile)
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds)
 	log.Printf("=== Iniciando logs para máquina %s ===", c.MachineName)
