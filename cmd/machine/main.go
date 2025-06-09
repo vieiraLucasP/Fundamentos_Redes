@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-	// Verificar se o arquivo de configuração foi fornecido
 	if len(os.Args) < 2 {
 		fmt.Println("Uso: go run main.go <arquivo_de_configuracao>")
 		fmt.Println("Exemplo: go run main.go config.txt")
@@ -22,10 +21,17 @@ func main() {
 
 	configFile := os.Args[1]
 
-	// Carregar configuração
 	cfg, err := config.LoadConfig(configFile)
 	if err != nil {
 		log.Fatalf("Erro ao carregar configuração: %v", err)
+	}
+
+	if err := cfg.SetupLogger(); err != nil {
+		fmt.Printf("Aviso: Não foi possível configurar o arquivo de log: %v\n", err)
+		fmt.Println("Os logs serão exibidos apenas no terminal.")
+	} else {
+		fmt.Printf("Logs sendo gravados em: %s\n", cfg.LogFile)
+		fmt.Println("O terminal agora está limpo para comandos.")
 	}
 
 	fmt.Printf("=== Iniciando Máquina da Rede em Anel ===\n")
@@ -35,13 +41,11 @@ func main() {
 	fmt.Printf("Gera token inicial: %t\n", cfg.GeneratesToken)
 	fmt.Println("=====================================")
 
-	// Criar a máquina da rede
 	machine, err := network.NewMachine(cfg)
 	if err != nil {
 		log.Fatalf("Erro ao criar máquina: %v", err)
 	}
 
-	// Iniciar a máquina em uma goroutine
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -49,7 +53,6 @@ func main() {
 		machine.Start()
 	}()
 
-	// Interface de linha de comando para envio de mensagens
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
 		fmt.Println("\n=== Interface de Comandos ===")
@@ -60,7 +63,8 @@ func main() {
 		fmt.Println("4. queue - Ver fila de mensagens")
 		fmt.Println("5. token - Gerar novo token (se autorizado)")
 		fmt.Println("6. help - Mostrar comandos")
-		fmt.Println("7. quit - Sair")
+		fmt.Println("7. logs - Ver últimas linhas do arquivo de log")
+		fmt.Println("8. quit - Sair")
 		fmt.Println("============================")
 
 		for {
@@ -143,7 +147,45 @@ func main() {
 				fmt.Println("4. queue - Ver fila de mensagens")
 				fmt.Println("5. token - Gerar novo token (se autorizado)")
 				fmt.Println("6. help - Mostrar comandos")
-				fmt.Println("7. quit - Sair")
+				fmt.Println("7. logs - Ver últimas linhas do arquivo de log")
+				fmt.Println("8. quit - Sair")
+
+			case "logs":
+				if cfg.LogFile == "" {
+					fmt.Println("Logs não estão sendo gravados em arquivo.")
+					continue
+				}
+
+				file, err := os.Open(cfg.LogFile)
+				if err != nil {
+					fmt.Printf("Erro ao abrir arquivo de log: %v\n", err)
+					continue
+				}
+				defer file.Close()
+
+				scanner := bufio.NewScanner(file)
+				var lines []string
+				for scanner.Scan() {
+					lines = append(lines, scanner.Text())
+					if len(lines) > 20 {
+						lines = lines[1:]
+					}
+				}
+
+				if err := scanner.Err(); err != nil {
+					fmt.Printf("Erro ao ler arquivo de log: %v\n", err)
+					continue
+				}
+
+				fmt.Println("\n=== Últimas linhas do log ===")
+				if len(lines) == 0 {
+					fmt.Println("Nenhum log encontrado.")
+				} else {
+					for _, line := range lines {
+						fmt.Println(line)
+					}
+				}
+				fmt.Println("=============================")
 
 			case "quit", "exit":
 				fmt.Println("Encerrando máquina...")
@@ -156,6 +198,5 @@ func main() {
 		}
 	}()
 
-	// Aguardar a goroutine principal
 	wg.Wait()
 }
