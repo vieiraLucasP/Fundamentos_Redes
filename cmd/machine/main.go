@@ -12,7 +12,10 @@ import (
 	"ring-network/pkg/network"
 )
 
+// main é o ponto de entrada da aplicação
+// Inicializa a máquina da rede em anel e a interface de comandos
 func main() {
+	// Verifica se foi fornecido o arquivo de configuração
 	if len(os.Args) < 2 {
 		fmt.Println("Uso: go run main.go <arquivo_de_configuracao>")
 		fmt.Println("Exemplo: go run main.go config.txt")
@@ -21,11 +24,13 @@ func main() {
 
 	configFile := os.Args[1]
 
+	// Carrega a configuração do arquivo
 	cfg, err := config.LoadConfig(configFile)
 	if err != nil {
 		log.Fatalf("Erro ao carregar configuração: %v", err)
 	}
 
+	// Configura o sistema de log
 	if err := cfg.SetupLogger(); err != nil {
 		fmt.Printf("Aviso: Não foi possível configurar o arquivo de log: %v\n", err)
 		fmt.Println("Os logs serão exibidos apenas no terminal.")
@@ -34,6 +39,7 @@ func main() {
 		fmt.Println("O terminal agora está limpo para comandos.")
 	}
 
+	// Exibe informações de inicialização
 	fmt.Printf("=== Iniciando Máquina da Rede em Anel ===\n")
 	fmt.Printf("Máquina: %s\n", cfg.MachineName)
 	fmt.Printf("Destino do token: %s\n", cfg.NextMachineAddr)
@@ -41,11 +47,13 @@ func main() {
 	fmt.Printf("Gera token inicial: %t\n", cfg.GeneratesToken)
 	fmt.Println("=====================================")
 
+	// Cria a máquina com a configuração carregada
 	machine, err := network.NewMachine(cfg)
 	if err != nil {
 		log.Fatalf("Erro ao criar máquina: %v", err)
 	}
 
+	// Inicia a máquina em uma goroutine separada
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -53,6 +61,7 @@ func main() {
 		machine.Start()
 	}()
 
+	// Inicia a interface de comandos em outra goroutine
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
 		fmt.Println("\n=== Interface de Comandos ===")
@@ -67,6 +76,7 @@ func main() {
 		fmt.Println("8. quit - Sair")
 		fmt.Println("============================")
 
+		// Loop principal da interface de comandos
 		for {
 			fmt.Print("\n> ")
 			if !scanner.Scan() {
@@ -78,11 +88,14 @@ func main() {
 				continue
 			}
 
+			// Divide a entrada em partes para processamento
 			parts := strings.SplitN(input, " ", 3)
 			command := strings.ToLower(parts[0])
 
+			// Processa o comando
 			switch command {
 			case "send":
+				// Envia mensagem unicast
 				if len(parts) < 3 {
 					fmt.Println("Uso: send <destino> <mensagem>")
 					continue
@@ -97,6 +110,7 @@ func main() {
 				}
 
 			case "broadcast":
+				// Envia mensagem broadcast
 				if len(parts) < 2 {
 					fmt.Println("Uso: broadcast <mensagem>")
 					continue
@@ -110,6 +124,7 @@ func main() {
 				}
 
 			case "status":
+				// Exibe o status da máquina
 				status := machine.GetStatus()
 				fmt.Printf("Status da Máquina:\n")
 				fmt.Printf("  Nome: %s\n", status.MachineName)
@@ -121,6 +136,7 @@ func main() {
 				fmt.Printf("  Mensagens Recebidas: %d\n", status.MessagesReceived)
 
 			case "queue":
+				// Exibe a fila de mensagens
 				queue := machine.GetMessageQueue()
 				if len(queue) == 0 {
 					fmt.Println("Fila de mensagens vazia")
@@ -132,6 +148,7 @@ func main() {
 				}
 
 			case "token":
+				// Gera um novo token
 				err := machine.GenerateToken()
 				if err != nil {
 					fmt.Printf("Erro ao gerar token: %v\n", err)
@@ -140,6 +157,7 @@ func main() {
 				}
 
 			case "help":
+				// Exibe ajuda
 				fmt.Println("\nComandos disponíveis:")
 				fmt.Println("1. send <destino> <mensagem> - Enviar mensagem unicast")
 				fmt.Println("2. broadcast <mensagem> - Enviar mensagem broadcast")
@@ -151,6 +169,7 @@ func main() {
 				fmt.Println("8. quit - Sair")
 
 			case "logs":
+				// Exibe as últimas linhas do arquivo de log
 				if cfg.LogFile == "" {
 					fmt.Println("Logs não estão sendo gravados em arquivo.")
 					continue
@@ -163,6 +182,7 @@ func main() {
 				}
 				defer file.Close()
 
+				// Lê as últimas 20 linhas do arquivo
 				scanner := bufio.NewScanner(file)
 				var lines []string
 				for scanner.Scan() {
@@ -177,6 +197,7 @@ func main() {
 					continue
 				}
 
+				// Exibe as linhas
 				fmt.Println("\n=== Últimas linhas do log ===")
 				if len(lines) == 0 {
 					fmt.Println("Nenhum log encontrado.")
@@ -188,6 +209,7 @@ func main() {
 				fmt.Println("=============================")
 
 			case "quit", "exit":
+				// Encerra a máquina
 				fmt.Println("Encerrando máquina...")
 				machine.Stop()
 				os.Exit(0)
@@ -198,5 +220,6 @@ func main() {
 		}
 	}()
 
+	// Aguarda a finalização da goroutine principal
 	wg.Wait()
 }
